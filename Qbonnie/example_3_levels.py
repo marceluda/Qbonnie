@@ -114,18 +114,19 @@ ax = axx[1]
 delta_vec   = np.linspace(-1e8,1e8,101)
 populations = np.array([ abs(np.diag(q.evol(1,rho0,Delta=10000,delta=dd))) for dd in delta_vec ]).T
 
-for pop in populations:
-    ax.plot(delta_vec,pop)
+for pop,label in zip(populations,r'$\rho_{00}$ $\rho_{11}$ $\rho_{22}$'.split()):
+    ax.plot(delta_vec/1e6,pop, label=label)
 
 delta_vec   = np.linspace(-1e8,1e8,101)
 populations = np.array([ abs(np.diag(q.evol(1,rho0,Delta=100,delta=dd))) for dd in delta_vec ]).T
 
 for ii,pop in enumerate(populations):
-    ax.plot(delta_vec,pop,'--',color=f'C{ii}')
+    ax.plot(delta_vec/1e6,pop,'--',color=f'C{ii}')
 
+ax.legend(loc=7)
 # ax.semilogx()
 ax.semilogy()
-ax.set_xlabel('delta [Hz]')
+ax.set_xlabel('delta [MHz]')
 # ax.set_ylabel('population')
 ax.set_title('variation of delta\nDelta=10 kHz,time=1s [-]\nDelta=0 Hz,time=1s [--]')
 
